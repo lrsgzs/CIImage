@@ -1,0 +1,26 @@
+﻿<ci:ComponentBase 
+    x:Class="CIImage.SettingPages.ImageComponentSettings"
+    x:TypeArguments="configs:ImageComponentConfig"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ci="http://classisland.tech/schemas/xaml/core"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:settingPages="clr-namespace:CIImage.SettingPages"
+    xmlns:configs="clr-namespace:CIImage.Configs"
+    mc:Ignorable="d">
+    <ScrollViewer DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=settingPages:ImageComponentSettings}}">
+        <StackPanel Style="{StaticResource SettingsPageStackPanelStyle}">
+            <ci:SettingsCard IconGlyph="FileImageAddOutline" Header="图片路径" Description="图片的绝对路径">
+                <ci:SettingsCard.Switcher>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <TextBox MinWidth="150" MaxWidth="150" Margin="0 0 2 0" VerticalAlignment="Center"
+                                 Text="{Binding Settings.ImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:TextFieldAssist.HasClearButton="True"/>
+                        <Button Content="打开文件" Click="On_OpenFile" />
+                    </StackPanel>
+                </ci:SettingsCard.Switcher>
+            </ci:SettingsCard>
+        </StackPanel>
+    </ScrollViewer>
+</ci:ComponentBase>
