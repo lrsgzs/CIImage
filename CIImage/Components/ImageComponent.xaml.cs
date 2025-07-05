@@ -41,11 +41,16 @@ public partial class ImageComponent {
                 bitmap.UriSource = new Uri(Settings.ImagePath);
                 bitmap.EndInit();
                 ImageViewer.Source = bitmap;
+
                 ErrMsg.Content = "";
+                ErrMsg.Visibility = Visibility.Collapsed;
+                ImageViewer.Visibility = Visibility.Visible;
             }
             catch (Exception)
             {
                 ErrMsg.Content = "图片不存在";
+                ErrMsg.Visibility = Visibility.Visible;
+                ImageViewer.Visibility = Visibility.Collapsed;
             }
                 
         }
