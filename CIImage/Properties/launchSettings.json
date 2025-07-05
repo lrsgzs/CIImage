@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ClassIsland 插件": {
+      "commandName": "Executable",
+      "executablePath": "X:\\CI-Plugins\\ClassIsland\\ClassIsland\\bin\\Debug\\net8.0-windows\\ClassIsland.exe",
+      "commandLineArgs": "-epp $(TargetDir)",
+      "workingDirectory": "X:\\CI-Plugins\\ClassIsland\\ClassIsland\\bin\\Debug\\net8.0-windows\\"
+    }
+  }
+}
