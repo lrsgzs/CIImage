@@ -7,6 +7,6 @@ name: CIImage
 description: 就是图片组件呗
 entranceAssembly: "CIImage.dll"
 url: https://example.com
-version: 1.0.0.0
+version: 1.0.0.1
 apiVersion: 1.6.0
 author: lrs2187
