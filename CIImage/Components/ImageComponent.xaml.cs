@@ -1,15 +1,8 @@
-﻿using ClassIsland.Core.Abstractions.Controls;
-using ClassIsland.Core.Abstractions.Services;
+﻿using ClassIsland.Core.Abstractions.Services;
 using ClassIsland.Core.Attributes;
-using ClassIsland.Core.Controls;
 using MahApps.Metro.Controls;
 using MaterialDesignThemes.Wpf;
-using System;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -21,20 +14,27 @@ namespace CIImage.Components;
     PackIconKind.Image,
     "在主界面上显示图片。"
 )]
-public partial class ImageComponent {
+public partial class ImageComponent
+{
     private string lastImagePath = string.Empty;
     private ILessonsService LessonsService { get; }
 
-    public ImageComponent(ILessonsService lessonsService) {
+    public ImageComponent(ILessonsService lessonsService)
+    {
         LessonsService = lessonsService;
         InitializeComponent();
     }
 
-    void LoadPicture(object? sender = null, EventArgs? eventArgs = null) {
-        if (Settings.ImagePath != lastImagePath) {
+    void LoadPicture(object? sender, PropertyChangedEventArgs e)
+    {
+        LoadPicture();
+    }
+    void LoadPicture()
+    {
+        if (Settings.ImagePath != lastImagePath)
+        {
             lastImagePath = Settings.ImagePath;
-
-            var bitmap = new BitmapImage();
+            BitmapImage bitmap = new BitmapImage();
             try
             {
                 bitmap.BeginInit();
@@ -52,22 +52,18 @@ public partial class ImageComponent {
                 ErrMsg.Visibility = Visibility.Visible;
                 ImageViewer.Visibility = Visibility.Collapsed;
             }
-                
-        }
-    }
 
-    void OnLoad() {
-        LoadPicture();
-        LessonsService.PostMainTimerTicked += LoadPicture;
+        }
     }
 
     private void ComponentBase_Loaded(object sender, RoutedEventArgs e)
     {
-        this.BeginInvoke(OnLoad);
+        this.BeginInvoke(LoadPicture);
+        Settings.PropertyChanged += LoadPicture;
     }
 
     private void ComponentBase_Unloaded(object sender, RoutedEventArgs e)
     {
-        LessonsService.PostMainTimerTicked -= LoadPicture;
+        Settings.PropertyChanged -= LoadPicture;
     }
 }
