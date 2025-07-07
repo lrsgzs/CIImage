@@ -33,8 +33,7 @@ public partial class ImageComponent {
     void LoadPicture(object? sender = null, EventArgs? eventArgs = null) {
         if (Settings.ImagePath != lastImagePath) {
             lastImagePath = Settings.ImagePath;
-
-            var bitmap = new BitmapImage();
+            BitmapImage bitmap = new BitmapImage();
             try
             {
                 bitmap.BeginInit();
@@ -58,7 +57,7 @@ public partial class ImageComponent {
 
     void OnLoad() {
         LoadPicture();
-        LessonsService.PostMainTimerTicked += LoadPicture;
+        Settings.PropertyChanged += LoadPicture;
     }
 
     private void ComponentBase_Loaded(object sender, RoutedEventArgs e)
@@ -68,6 +67,6 @@ public partial class ImageComponent {
 
     private void ComponentBase_Unloaded(object sender, RoutedEventArgs e)
     {
-        LessonsService.PostMainTimerTicked -= LoadPicture;
+        Settings.PropertyChanged -= LoadPicture;
     }
 }
