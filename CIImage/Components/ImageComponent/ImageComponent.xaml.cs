@@ -29,6 +29,7 @@ public partial class ImageComponent
     {
         LoadPicture();
     }
+
     void LoadPicture()
     {
         if (Settings.ImagePath != lastImagePath)
@@ -41,6 +42,7 @@ public partial class ImageComponent
                 bitmap.UriSource = new Uri(Settings.ImagePath);
                 bitmap.EndInit();
                 ImageViewer.Source = bitmap;
+                LessonsService.PostMainTimerTicked += setGeometry; // 要不然 RenderSize.Width 为 0 就尴尬了
 
                 ErrMsg.Content = "";
                 ErrMsg.Visibility = Visibility.Collapsed;
@@ -54,6 +56,20 @@ public partial class ImageComponent
             }
 
         }
+    }
+
+    private void setGeometry(object? sender, EventArgs e)
+    {
+        setGeometry();
+    }
+
+    void setGeometry()
+    {
+        Size size = ImageViewer.RenderSize;
+        if (size.Width == 0) return;
+
+        ImageViewerGeometry.Rect = new Rect(0, 0, size.Width, size.Height);
+        LessonsService.PostMainTimerTicked -= setGeometry;
     }
 
     private void ComponentBase_Loaded(object sender, RoutedEventArgs e)

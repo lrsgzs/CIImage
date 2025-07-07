@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32;
 
-namespace CIImage.SettingPages;
+namespace CIImage.Components;
 
 public partial class ImageComponentSettings {
     public ImageComponentSettings()

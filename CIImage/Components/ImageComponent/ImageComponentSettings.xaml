@@ -1,32 +1,44 @@
 ﻿<ci:ComponentBase 
-    x:Class="CIImage.SettingPages.ImageComponentSettings"
-    x:TypeArguments="configs:ImageComponentConfig"
+    x:Class="CIImage.Components.ImageComponentSettings"
+    x:TypeArguments="components:ImageComponentConfig"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ci="http://classisland.tech/schemas/xaml/core"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:settingPages="clr-namespace:CIImage.SettingPages"
-    xmlns:configs="clr-namespace:CIImage.Configs"
+    xmlns:components="clr-namespace:CIImage.Components"
     mc:Ignorable="d">
-    <ScrollViewer DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=settingPages:ImageComponentSettings}}">
+    <ScrollViewer DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=components:ImageComponentSettings}}">
         <StackPanel Style="{StaticResource SettingsPageStackPanelStyle}">
             <ci:SettingsCard IconGlyph="FileImageAddOutline" Header="图片路径" Description="图片的绝对路径">
                 <ci:SettingsCard.Switcher>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <TextBox MinWidth="50" MaxWidth="350" Margin="0 0 2 0" VerticalAlignment="Center"
+                        <TextBox MinWidth="180" MaxWidth="360" Margin="0 0 2 0" VerticalAlignment="Center"
                                  Text="{Binding Settings.ImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  materialDesign:TextFieldAssist.HasClearButton="True"/>
                         <Button Click="On_OpenFile" 
                                 Foreground="{StaticResource MaterialDesignBody}"
                                 Background="Transparent"
                                 BorderBrush="Transparent"
-                                Padding="4,0,0,0">
+                                Padding="8,0,8,0">
                             <Button.Content>
                                 <materialDesign:PackIcon Kind="FolderEdit"/>
                             </Button.Content>
                         </Button>
+                    </StackPanel>
+                </ci:SettingsCard.Switcher>
+            </ci:SettingsCard>
+            
+            <ci:SettingsCard IconGlyph="BorderRoundCorners" Header="圆角半径" Description="图片的圆角半径">
+                <ci:SettingsCard.Switcher>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Slider Width="180" Minimum="0" Maximum="18" TickFrequency="0.5"
+                                Value="{Binding Settings.CornerRadius}"
+                                AutoToolTipPlacement="BottomRight"
+                                AutoToolTipPrecision="1"
+                                IsSnapToTickEnabled="True"
+                                VerticalAlignment="Center" />
                     </StackPanel>
                 </ci:SettingsCard.Switcher>
             </ci:SettingsCard>

@@ -2,18 +2,18 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="Components\ImageComponent.xaml.cs">
+    <Compile Update="Components\ImageComponent\ImageComponent.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="SettingPages\ImageComponentSettings.xaml.cs">
+    <Compile Update="Components\ImageComponent\ImageComponentSettings.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Components\ImageComponent.xaml">
+    <Page Update="Components\ImageComponent\ImageComponent.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="SettingPages\ImageComponentSettings.xaml">
+    <Page Update="Components\ImageComponent\ImageComponentSettings.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

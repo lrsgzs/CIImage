@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace CIImage.Configs;
+namespace CIImage.Components;
 
 public class ImageComponentConfig : ObservableObject
 {
@@ -12,6 +12,18 @@ public class ImageComponentConfig : ObservableObject
         {
             if (_imagePath == value) return;
             _imagePath = value;
+            OnPropertyChanged();
+        }
+    }
+
+    double _cornerRadius = 0;
+    public double CornerRadius
+    {
+        get => _cornerRadius;
+        set
+        {
+            if (_cornerRadius == value) return;
+            _cornerRadius = value;
             OnPropertyChanged();
         }
     }

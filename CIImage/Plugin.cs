@@ -13,6 +13,6 @@ public class Plugin : PluginBase
 {
     public override void Initialize(HostBuilderContext context, IServiceCollection services)
     {
-        services.AddComponent<Components.ImageComponent, SettingPages.ImageComponentSettings>();
+        services.AddComponent<Components.ImageComponent, Components.ImageComponentSettings>();
     }
 }
