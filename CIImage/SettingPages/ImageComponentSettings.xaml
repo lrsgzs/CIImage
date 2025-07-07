@@ -15,9 +15,18 @@
             <ci:SettingsCard IconGlyph="FileImageAddOutline" Header="图片路径" Description="图片的绝对路径">
                 <ci:SettingsCard.Switcher>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <TextBox MinWidth="150" MaxWidth="150" Margin="0 0 2 0" VerticalAlignment="Center"
-                                 Text="{Binding Settings.ImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:TextFieldAssist.HasClearButton="True"/>
-                        <Button Content="打开文件" Click="On_OpenFile" />
+                        <TextBox MinWidth="50" MaxWidth="350" Margin="0 0 2 0" VerticalAlignment="Center"
+                                 Text="{Binding Settings.ImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 materialDesign:TextFieldAssist.HasClearButton="True"/>
+                        <Button Click="On_OpenFile" 
+                                Foreground="{StaticResource MaterialDesignBody}"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                Padding="4,0,0,0">
+                            <Button.Content>
+                                <materialDesign:PackIcon Kind="FolderEdit"/>
+                            </Button.Content>
+                        </Button>
                     </StackPanel>
                 </ci:SettingsCard.Switcher>
             </ci:SettingsCard>
