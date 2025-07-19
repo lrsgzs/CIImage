@@ -1,7 +1,7 @@
 # CIImage
 > 为 ClassIsland 添加了图片组件
 
-~~完工啦完工啦！！不用写了！！等 2.0！（~~
+### 本插件已完成 ClassIsland 2.0 的适配，enjoy it
 
 本插件提供了以下组件：
 - ImageComponent 图片
