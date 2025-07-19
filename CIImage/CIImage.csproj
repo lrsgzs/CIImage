@@ -3,36 +3,19 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
-		<UseWPF>true</UseWPF>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableDynamicLoading>True</EnableDynamicLoading>
 	</PropertyGroup>
 
-	<PropertyGroup>
-		<ClassIslandPluginSdkVersion>1.6.0.5</ClassIslandPluginSdkVersion>
-	</PropertyGroup>
-
 	<ItemGroup>
-		<PackageReference Include="ClassIsland.PluginSdk" Version="$(ClassIslandPluginSdkVersion)">
+		<PackageReference Include="ClassIsland.PluginSdk" Version="1.7.103-dev-v2">
 			<ExcludeAssets>runtime; native</ExcludeAssets>
 		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Properties\Settings.Designer.cs">
-	    <DesignTimeSharedInput>True</DesignTimeSharedInput>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Settings.settings</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
 		<None Update="manifest.yml">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Properties\Settings.settings">
-		  <Generator>SettingsSingleFileGenerator</Generator>
-		  <LastGenOutput>Settings.Designer.cs</LastGenOutput>
 		</None>
 		<None Update="README.md">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
