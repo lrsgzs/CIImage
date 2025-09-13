@@ -14,11 +14,11 @@
 
     <Grid VerticalAlignment="Center"
           DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=components:ImageComponent}}">
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Margin="0 2 0 2">
             <Border
                 CornerRadius="{Binding Settings.CornerRadius, Converter={StaticResource CornerRadiusConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                 ClipToBounds="True">
-                <asyncImageLoader:AdvancedImage Source="{Binding Settings.ImagePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Height="36" />
+                <asyncImageLoader:AdvancedImage Source="{Binding Settings.ImagePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
             </Border>
         </StackPanel>
     </Grid>
