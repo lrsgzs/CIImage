@@ -25,25 +25,4 @@ public partial class ImageComponent : ComponentBase<ImageComponentConfig>
     {
         InitializeComponent();
     }
-
-    private void LoadPicture(object? sender, PropertyChangedEventArgs e)
-    {
-        LoadPicture();
-    }
-
-    private void LoadPicture()
-    {
-        ImageViewer.Source = Settings.ImagePath;
-    }
-
-    private void Component_Loaded(object? sender, RoutedEventArgs e)
-    {
-        Dispatcher.UIThread.Invoke(LoadPicture);
-        Settings.PropertyChanged += LoadPicture;
-    }
-
-    private void Component_Unloaded(object sender, RoutedEventArgs e)
-    {
-        Settings.PropertyChanged -= LoadPicture;
-    }
 }
