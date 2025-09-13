@@ -2,7 +2,7 @@
 using Avalonia;
 using Avalonia.Data.Converters;
 
-namespace CIImage.Converters;
+namespace CIImage.Shared.Converters;
 
 public class CornerRadiusConverter : IValueConverter
 {

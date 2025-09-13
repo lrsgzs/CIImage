@@ -1,3 +1,5 @@
+using CIImage.Controls.Components;
+using CIImage.Controls.ComponentSettings;
 using ClassIsland.Core.Abstractions;
 using ClassIsland.Core.Attributes;
 using ClassIsland.Core.Extensions.Registry;
@@ -11,7 +13,6 @@ public class Plugin : PluginBase
 {
     public override void Initialize(HostBuilderContext context, IServiceCollection services)
     {
-        Console.WriteLine("CIImage is loading...");
-        services.AddComponent<Components.ImageComponent, Components.ImageComponentSettings>();
+        services.AddComponent<ImageComponent, ImageComponentSettingsControl>();
     }
 }
