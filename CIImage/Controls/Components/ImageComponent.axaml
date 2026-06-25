@@ -4,7 +4,6 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ci="http://classisland.tech/schemas/xaml/core"
-    xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
     xmlns:componentSettings="clr-namespace:CIImage.Controls.ComponentSettings"
     xmlns:converters="clr-namespace:CIImage.Shared.Converters"
     xmlns:local="clr-namespace:CIImage.Controls.Components">
@@ -19,7 +18,7 @@
             <Border
                 CornerRadius="{Binding Settings.CornerRadius, Converter={StaticResource CornerRadiusConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                 ClipToBounds="True">
-                <asyncImageLoader:AdvancedImage Source="{Binding Settings.ImagePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Image x:Name="ImageViewer" />
             </Border>
         </StackPanel>
     </Grid>
