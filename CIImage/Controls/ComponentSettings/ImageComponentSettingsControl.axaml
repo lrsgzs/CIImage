@@ -36,6 +36,13 @@
                     </StackPanel>
                 </controls:SettingsExpander.Footer>
             </controls:SettingsExpander>
+
+            <controls:SettingsExpander IconSource="{ci:FluentIconSource &#xE768;}" Header="动画" Description="控制 GIF 图片的播放与暂停">
+                <controls:SettingsExpander.Footer>
+                    <ToggleSwitch HorizontalAlignment="Right" VerticalAlignment="Center"
+                                  IsChecked="{Binding Settings.IsAnimating, Mode=TwoWay}" />
+                </controls:SettingsExpander.Footer>
+            </controls:SettingsExpander>
         </StackPanel>
     </ScrollViewer>
 </ci:ComponentBase>

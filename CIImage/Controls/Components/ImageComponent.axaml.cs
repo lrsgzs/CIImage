@@ -43,8 +43,15 @@ public partial class ImageComponent : ComponentBase<ImageComponentSettings>
 
     private void OnSettingsChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(ImageComponentSettings.ImagePath))
-            LoadImage(Settings.ImagePath);
+        switch (e.PropertyName)
+        {
+            case nameof(ImageComponentSettings.ImagePath):
+                LoadImage(Settings.ImagePath);
+                break;
+            case nameof(ImageComponentSettings.IsAnimating):
+                ApplyAnimationState();
+                break;
+        }
     }
 
     private void LoadImage(string path)
@@ -136,11 +143,10 @@ public partial class ImageComponent : ComponentBase<ImageComponentSettings>
 
             ImageViewer.Source = _gifFrames[0];
 
-            _gifTimer = new DispatcherTimer(
-                TimeSpan.FromMilliseconds(_gifFrameDelaysMs[0]),
-                DispatcherPriority.Normal,
-                OnGifTimerTick);
-            _gifTimer.Start();
+            if (Settings.IsAnimating)
+            {
+                StartGifTimer();
+            }
         }
         catch
         {
@@ -163,14 +169,44 @@ public partial class ImageComponent : ComponentBase<ImageComponentSettings>
         }
     }
 
+    private void StartGifTimer()
+    {
+        if (_gifTimer != null || _gifFrameDelaysMs == null) return;
+
+        _gifTimer = new DispatcherTimer(
+            TimeSpan.FromMilliseconds(_gifFrameDelaysMs[_currentFrameIndex]),
+            DispatcherPriority.Normal,
+            OnGifTimerTick);
+        _gifTimer.Start();
+    }
+
+    private void StopGifTimer()
+    {
+        if (_gifTimer == null) return;
+
+        _gifTimer.Stop();
+        _gifTimer.Tick -= OnGifTimerTick;
+        _gifTimer = null;
+    }
+
+    private void ApplyAnimationState()
+    {
+        if (_gifFrames == null) return; // No GIF loaded
+
+        if (Settings.IsAnimating)
+        {
+            if (_gifTimer == null)
+                StartGifTimer();
+        }
+        else
+        {
+            StopGifTimer();
+        }
+    }
+
     private void StopGifAnimation()
     {
-        if (_gifTimer != null)
-        {
-            _gifTimer.Stop();
-            _gifTimer.Tick -= OnGifTimerTick;
-            _gifTimer = null;
-        }
+        StopGifTimer();
 
         if (_gifFrames != null)
         {
