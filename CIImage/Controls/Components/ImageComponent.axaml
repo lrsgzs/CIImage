@@ -1,14 +1,12 @@
-﻿<ci:ComponentBase
-    x:Class="CIImage.Controls.Components.ImageComponent"
-    x:TypeArguments="componentSettings:ImageComponentSettingsControl"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ci="http://classisland.tech/schemas/xaml/core"
-    xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
-    xmlns:componentSettings="clr-namespace:CIImage.Controls.ComponentSettings"
-    xmlns:converters="clr-namespace:CIImage.Shared.Converters"
-    xmlns:local="clr-namespace:CIImage.Controls.Components">
-
+﻿<ci:ComponentBase x:Class="CIImage.Controls.Components.ImageComponent"
+                  x:TypeArguments="componentSettings:ImageComponentSettingsControl"
+                  xmlns="https://github.com/avaloniaui"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                  xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+                  xmlns:componentSettings="clr-namespace:CIImage.Controls.ComponentSettings"
+                  xmlns:converters="clr-namespace:CIImage.Shared.Converters"
+                  xmlns:local="clr-namespace:CIImage.Controls.Components">
     <ci:ComponentBase.Resources>
         <converters:CornerRadiusConverter x:Key="CornerRadiusConverter" />
     </ci:ComponentBase.Resources>
@@ -17,9 +15,9 @@
           DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ImageComponent}}">
         <StackPanel Orientation="Horizontal" Margin="0 2 0 2">
             <Border
-                CornerRadius="{Binding Settings.CornerRadius, Converter={StaticResource CornerRadiusConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                CornerRadius="{ReflectionBinding Settings.CornerRadius, Converter={StaticResource CornerRadiusConverter}}"
                 ClipToBounds="True">
-                <asyncImageLoader:AdvancedImage Source="{Binding Settings.ImagePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                <asyncImageLoader:AdvancedImage Source="{ReflectionBinding Settings.ImagePath}" />
             </Border>
         </StackPanel>
     </Grid>

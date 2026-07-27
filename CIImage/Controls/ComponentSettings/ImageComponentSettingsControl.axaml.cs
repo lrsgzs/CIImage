@@ -3,6 +3,7 @@ using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using CIImage.Models.ComponentSettings;
 using ClassIsland.Core.Abstractions.Controls;
+using ClassIsland.Core.Icons;
 
 namespace CIImage.Controls.ComponentSettings;
 
