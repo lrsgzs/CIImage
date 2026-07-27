@@ -34,6 +34,29 @@
                                 FontSize="18" />
                     </StackPanel>
                 </fa:FASettingsExpander.Footer>
+                
+                <fa:FASettingsExpanderItem Content="内置图片"
+                                           Description="从应用内置资源加载的图片。">
+                    <fa:FASettingsExpanderItem.Footer>
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <ComboBox x:Name="PresetComboBox"
+                                      ItemsSource="{Binding PresetImageList}"
+                                      SelectedValueBinding="{Binding Value}"
+                                      MaxDropDownHeight="360"
+                                      Width="240">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding Key}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            
+                            <Button Content="应用预设"
+                                    Command="{Binding ApplyPresetCommand}"
+                                    CommandParameter="{Binding #PresetComboBox.SelectedValue}" />
+                        </StackPanel>
+                    </fa:FASettingsExpanderItem.Footer>
+                </fa:FASettingsExpanderItem>
             </fa:FASettingsExpander>
 
             <fa:FASettingsExpander IconSource="{ci:FluentIconSource {ci:FI SquareRegular}}"
@@ -52,8 +75,7 @@
 
             <fa:FASettingsExpander IconSource="{ci:FluentIconSource {ci:FI ImageEditRegular}}"
                                    Header="图片矩形调整"
-                                   Description="在下方调整图片的矩形参数，点击「应用更改」以保存。"
-                                   IsExpanded="True">
+                                   Description="调整图片的矩形参数（包括缩放和偏移），点击「应用更改」以保存。">
                 <fa:FASettingsExpander.Footer>
                     <TextBlock Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}">
                         实验性功能。不保证稳定
