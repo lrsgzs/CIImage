@@ -1,6 +1,12 @@
+<div align="center">
+
+<img src="./CIImage/icon.png" width="128" height="128">
+
 # CIImage
 
 > 为 ClassIsland 添加了图片组件
+
+</div>
 
 ### 本插件已完成 ClassIsland 2.2 的适配，enjoy it
 
