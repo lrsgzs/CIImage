@@ -3,7 +3,6 @@ using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using CIImage.Models.ComponentSettings;
 using ClassIsland.Core.Abstractions.Controls;
-using ClassIsland.Core.Icons;
 
 namespace CIImage.Controls.ComponentSettings;
 
@@ -12,6 +11,13 @@ public partial class ImageComponentSettingsControl : ComponentBase<ImageComponen
     public ImageComponentSettingsControl()
     {
         InitializeComponent();
+    
+        Loaded += OnLoaded;
+    }
+
+    private void OnLoaded(object? sender, RoutedEventArgs e)
+    {
+        ZoomBorder.SetMatrix(Settings.Matrix);
     }
 
     private async void On_OpenFile(object sender, RoutedEventArgs e)
@@ -38,5 +44,15 @@ public partial class ImageComponentSettingsControl : ComponentBase<ImageComponen
         
         var file = result[0];
         Settings.ImagePath = file.Path.AbsolutePath;
+    }
+
+    private void RevertChange_OnClick(object? sender, RoutedEventArgs e)
+    {
+        ZoomBorder.SetMatrix(Settings.Matrix);
+    }
+
+    private void ApplyChange_OnClick(object? sender, RoutedEventArgs e)
+    {
+        Settings.Matrix = ZoomBorder.Matrix;
     }
 }

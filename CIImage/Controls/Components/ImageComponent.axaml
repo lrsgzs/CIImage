@@ -13,12 +13,14 @@
 
     <Grid VerticalAlignment="Center"
           DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ImageComponent}}">
-        <StackPanel Orientation="Horizontal" Margin="0 2 0 2">
-            <Border
-                CornerRadius="{ReflectionBinding Settings.CornerRadius, Converter={StaticResource CornerRadiusConverter}}"
-                ClipToBounds="True">
-                <asyncImageLoader:AdvancedImage Source="{ReflectionBinding Settings.ImagePath}" />
-            </Border>
-        </StackPanel>
+        <ZoomBorder x:Name="ZoomBorder"
+                    Width="38" Height="38" IsEnabled="False"
+                    CornerRadius="{ReflectionBinding Settings.CornerRadius, Converter={StaticResource CornerRadiusConverter}}"
+                    ClipToBounds="True">
+            <asyncImageLoader:AdvancedImage Width="38" Height="38"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Source="{ReflectionBinding Settings.ImagePath}" />
+        </ZoomBorder>
     </Grid>
 </ci:ComponentBase>

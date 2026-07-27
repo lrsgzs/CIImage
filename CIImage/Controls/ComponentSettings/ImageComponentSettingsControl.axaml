@@ -5,35 +5,41 @@
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:ci="http://classisland.tech/schemas/xaml/core"
-                  xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+                  xmlns:fa="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
                   xmlns:local="clr-namespace:CIImage.Controls.ComponentSettings"
                   xmlns:componentSettingsModel="clr-namespace:CIImage.Models.ComponentSettings"
+                  xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+                  xmlns:converters="clr-namespace:CIImage.Shared.Converters"
                   mc:Ignorable="d">
+    <ci:ComponentBase.Resources>
+        <converters:CornerRadiusConverter x:Key="CornerRadiusConverter" />
+    </ci:ComponentBase.Resources>
+
     <ScrollViewer
         DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ImageComponentSettingsControl}}">
         <StackPanel Classes="component-settings-container animated-intro">
-            <controls:FASettingsExpander IconSource="{ci:FluentIconSource {ci:FI ImageRegular}}"
-                                         Header="图片路径"
-                                         Description="图片的绝对路径">
-                <controls:FASettingsExpander.Footer>
+            <fa:FASettingsExpander IconSource="{ci:FluentIconSource {ci:FI ImageRegular}}"
+                                   Header="图片路径"
+                                   Description="图片的绝对路径">
+                <fa:FASettingsExpander.Footer>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <TextBox MinWidth="180" MaxWidth="360"
                                  Margin="0 0 2 0"
                                  VerticalAlignment="Center"
                                  Text="{ReflectionBinding Settings.ImagePath}" />
-                        
+
                         <Button Click="On_OpenFile"
                                 Padding="8,6,8,6"
                                 Content="{ci:FluentIcon {ci:FI FolderOpenRegular}}"
                                 FontSize="18" />
                     </StackPanel>
-                </controls:FASettingsExpander.Footer>
-            </controls:FASettingsExpander>
+                </fa:FASettingsExpander.Footer>
+            </fa:FASettingsExpander>
 
-            <controls:FASettingsExpander IconSource="{ci:FluentIconSource {ci:FI SquareRegular}}"
-                                         Header="圆角半径"
-                                         Description="图片的圆角半径">
-                <controls:FASettingsExpander.Footer>
+            <fa:FASettingsExpander IconSource="{ci:FluentIconSource {ci:FI SquareRegular}}"
+                                   Header="圆角半径"
+                                   Description="图片的圆角半径">
+                <fa:FASettingsExpander.Footer>
                     <Slider Width="180" Minimum="0" Maximum="18"
                             VerticalAlignment="Center"
                             Classes="auto-tooltip"
@@ -41,9 +47,96 @@
                             TickFrequency="1"
                             TickPlacement="None"
                             IsSnapToTickEnabled="True" />
-                </controls:FASettingsExpander.Footer>
-            </controls:FASettingsExpander>
-            
+                </fa:FASettingsExpander.Footer>
+            </fa:FASettingsExpander>
+
+            <fa:FASettingsExpander IconSource="{ci:FluentIconSource {ci:FI ImageEditRegular}}"
+                                   Header="图片矩形调整"
+                                   Description="在下方调整图片的矩形参数，点击「应用更改」以保存。"
+                                   IsExpanded="True">
+                <fa:FASettingsExpander.Footer>
+                    <TextBlock Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}">
+                        实验性功能。不保证稳定
+                    </TextBlock>
+                </fa:FASettingsExpander.Footer>
+
+                <Grid ColumnDefinitions="Auto *" ColumnSpacing="4">
+                    <Border Grid.Column="0"
+                            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                            BorderThickness="1"
+                            ClipToBounds="True">
+                        <Viewbox Height="360" HorizontalAlignment="Center">
+                            <Panel Height="120" Width="200">
+                                <ZoomBorder x:Name="ZoomBorder"
+                                            Height="38" Width="38"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            EnableGestureRotation="False"
+                                            PanButton="Left">
+                                    <asyncImageLoader:AdvancedImage Width="38" Height="38"
+                                                                    HorizontalAlignment="Center"
+                                                                    VerticalAlignment="Center"
+                                                                    Source="{ReflectionBinding Settings.ImagePath}" />
+                                </ZoomBorder>
+
+                                <Border Width="46" Height="46"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        BorderBrush="{DynamicResource AccentFillColorDefaultBrush}"
+                                        BorderThickness="4"
+                                        CornerRadius="{ReflectionBinding Settings.ZoomingCornerRadius, Converter={StaticResource CornerRadiusConverter}}"
+                                        IsHitTestVisible="False" />
+                            </Panel>
+                        </Viewbox>
+                    </Border>
+
+                    <Border Grid.Column="1"
+                            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4"
+                            ClipToBounds="True">
+                        <StackPanel Orientation="Vertical" Margin="8" Spacing="4">
+                            <WrapPanel Orientation="Horizontal" ItemSpacing="4" LineSpacing="4">
+                                <Button Click="ApplyChange_OnClick" Classes="accent">
+                                    <ci:IconText Glyph="{ci:FI CheckmarkRegular}" Text="应用更改" />
+                                </Button>
+
+                                <Button Click="RevertChange_OnClick"
+                                        Foreground="{DynamicResource SystemFillColorCriticalBrush}">
+                                    <ci:IconText Glyph="{ci:FI ArrowUndoRegular}" Text="撤销更改" />
+                                </Button>
+                            </WrapPanel>
+
+                            <Separator />
+
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="{Binding #ZoomBorder.ZoomX, StringFormat='当前缩放: {0:0.00}'}" />
+
+                            <WrapPanel Orientation="Horizontal" ItemSpacing="4" LineSpacing="4">
+                                <Button Command="{Binding #ZoomBorder.ZoomInCommand}">
+                                    <ci:IconText Glyph="{ci:FI ZoomInRegular}" Text="放大" />
+                                </Button>
+
+                                <Button Command="{Binding #ZoomBorder.ZoomOutCommand}">
+                                    <ci:IconText Glyph="{ci:FI ZoomOutRegular}" Text="缩小" />
+                                </Button>
+
+                                <Button Command="{Binding #ZoomBorder.ResetCommand}">
+                                    <ci:IconText Glyph="{ci:FI ArrowResetRegular}" Text="重置矩形" />
+                                </Button>
+                            </WrapPanel>
+
+                            <Separator />
+
+                            <TextBlock TextWrapping="Wrap">
+                                由于技术原因，请通过蓝框中间的区域或图片来拖动。
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </fa:FASettingsExpander>
+
             <TextBlock HorizontalAlignment="Center"
                        Foreground="{DynamicResource TextFillColorSecondaryBrush}">
                 未在 Android 测试，不保证能正常显示图片（？）
