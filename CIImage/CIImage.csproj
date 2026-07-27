@@ -8,6 +8,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<AvaloniaResource Include="Assets/*" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="ClassIsland.PluginSdk" Version="2.1.1">
 			<ExcludeAssets>runtime; native</ExcludeAssets>
 		</PackageReference>

@@ -22,5 +22,13 @@
                                             VerticalAlignment="Center"
                                             Source="{ReflectionBinding Settings.ImagePath}" />
         </ZoomBorder>
+                                
+        <Image Width="42" Height="42"
+               Margin="0 0 2.5 3"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               IsHitTestVisible="False"
+               Source="avares://CIImage/Assets/TravelFriendJoin.png"
+               IsVisible="{Binding Settings.ShowTravelFriendJoin}" />
     </Grid>
 </ci:ComponentBase>

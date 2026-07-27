@@ -9,6 +9,7 @@ public partial class ImageComponentSettings : ObservableObject
 {
     [ObservableProperty] private string _imagePath = string.Empty;
     [ObservableProperty] private double _cornerRadius = 0;
+    [ObservableProperty] private bool _showTravelFriendJoin = false;
 
     [JsonConverter(typeof(MatrixJsonConverter))]
     public Matrix Matrix

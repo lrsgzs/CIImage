@@ -86,6 +86,14 @@
                                         BorderThickness="4"
                                         CornerRadius="{ReflectionBinding Settings.ZoomingCornerRadius, Converter={StaticResource CornerRadiusConverter}}"
                                         IsHitTestVisible="False" />
+                                
+                                <Image Width="56" Height="56"
+                                       Margin="0 0 2.5 3"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       IsHitTestVisible="False"
+                                       Source="avares://CIImage/Assets/TravelFriendJoin.png"
+                                       IsVisible="{Binding Settings.ShowTravelFriendJoin}" />
                             </Panel>
                         </Viewbox>
                     </Border>
@@ -141,6 +149,30 @@
                        Foreground="{DynamicResource TextFillColorSecondaryBrush}">
                 未在 Android 测试，不保证能正常显示图片（？）
             </TextBlock>
+            
+            <Expander HorizontalAlignment="Left">
+                <Expander.Styles>
+                    <Style Selector="Expander /template/ ToggleButton">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Border Name="Root" Height="20" Background="Transparent" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Expander.Styles>
+                
+                <StackPanel Spacing="4">
+                    <ToggleSwitch OnContent="旅行伙伴加入喽！Welcome to maimai world!"
+                                  OffContent="显示「旅行伙伴加入」？"
+                                  IsChecked="{Binding Settings.ShowTravelFriendJoin}" />
+                    <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               FontStyle="Italic">
+                        讲个笑话：lrsgzs 玩 mai2 总时间才 15min（
+                    </TextBlock>
+                </StackPanel>
+            </Expander>
         </StackPanel>
     </ScrollViewer>
 </ci:ComponentBase>
