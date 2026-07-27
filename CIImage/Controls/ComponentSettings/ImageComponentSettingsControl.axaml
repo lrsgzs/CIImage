@@ -74,8 +74,8 @@
             </fa:FASettingsExpander>
 
             <fa:FASettingsExpander IconSource="{ci:FluentIconSource {ci:FI ImageEditRegular}}"
-                                   Header="图片矩形调整"
-                                   Description="调整图片的矩形参数（包括缩放和偏移），点击「应用更改」以保存。">
+                                   Header="显示参数"
+                                   Description="调整图片的显示参数（包括缩放和偏移），点击「应用更改」以保存。">
                 <fa:FASettingsExpander.Footer>
                     <TextBlock Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}">
                         实验性功能。不保证稳定
@@ -153,7 +153,7 @@
                                 </Button>
 
                                 <Button Command="{Binding #ZoomBorder.ResetCommand}">
-                                    <ci:IconText Glyph="{ci:FI ArrowResetRegular}" Text="重置矩形" />
+                                    <ci:IconText Glyph="{ci:FI ArrowResetRegular}" Text="重置参数" />
                                 </Button>
                             </WrapPanel>
 
