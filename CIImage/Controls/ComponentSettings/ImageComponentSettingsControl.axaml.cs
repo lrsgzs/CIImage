@@ -2,7 +2,10 @@
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using CIImage.Models.ComponentSettings;
+using ClassIsland.Core;
 using ClassIsland.Core.Abstractions.Controls;
+using ClassIsland.Core.Helpers.UI;
+using ClassIsland.Platforms.Abstraction;
 using CommunityToolkit.Mvvm.Input;
 
 namespace CIImage.Controls.ComponentSettings;
@@ -37,11 +40,11 @@ public partial class ImageComponentSettingsControl : ComponentBase<ImageComponen
         ["昔涟_收到"] = "avares://ClassIsland/Assets/HoYoStickers/昔涟_收到.png",
         ["昔涟_守护"] = "avares://ClassIsland/Assets/HoYoStickers/昔涟_守护.png"
     };
-    
+
     public ImageComponentSettingsControl()
     {
         InitializeComponent();
-    
+
         Loaded += OnLoaded;
     }
 
@@ -52,28 +55,24 @@ public partial class ImageComponentSettingsControl : ComponentBase<ImageComponen
 
     private async void On_OpenFile(object sender, RoutedEventArgs e)
     {
-        var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel == null) return;
-
-        var storage = topLevel.StorageProvider;
-        var result = await storage.OpenFilePickerAsync(new FilePickerOpenOptions
-        {
-            Title = "打开图片文件",
-            FileTypeFilter =
-            [
-                new FilePickerFileType("图片")
-                {
-                    Patterns = ["*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif"],
-                    MimeTypes = ["image/*"]
-                }
-            ],
-            AllowMultiple = false,
-            SuggestedFileName = Settings.ImagePath,
-        });
-        if (result.Count == 0) return;
+        var storageProvider = AppBase.Current.GetRootWindow().StorageProvider;
         
+        PopupHelper.DisableAllPopups();
+        var result = await PlatformServices.FilePickerService.OpenFilesPickerAsync(
+            new FilePickerOpenOptions
+            {
+                SuggestedStartLocation = await storageProvider.TryGetFolderFromPathAsync(Settings.ImagePath),
+                Title = "打开图片文件",
+                FileTypeFilter = [FilePickerFileTypes.ImageAll],
+                AllowMultiple = false,
+                SuggestedFileName = Settings.ImagePath
+            }, TopLevel.GetTopLevel(this) ?? AppBase.Current.GetRootWindow());
+        PopupHelper.RestoreAllPopups();
+
+        if (result.Count == 0) return;
+
         var file = result[0];
-        Settings.ImagePath = file.Path.AbsolutePath;
+        Settings.ImagePath = file;
     }
 
     [RelayCommand]
